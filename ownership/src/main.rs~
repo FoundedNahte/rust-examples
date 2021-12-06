@@ -1,0 +1,67 @@
+fn main() 
+{   //s is not valid here, it's not yet declared
+    let s = "hello"; // s is valid from this point forward (literal string stored on stack)
+
+    doee();
+    // do stuff with s
+} // this scope is now over, and s is no longer valid
+
+
+fn String() {
+
+    let mut s = String::from("hello"); //allocated on the heap; valid from this point forward
+
+    s.push_str(", world!"); //push_str() appends a literal to a String
+
+    println!("{}", s);
+} // scope is over and s is no longer valid
+
+fn ex1() { //data stored on the stack at runtime are always going to have deep copies
+
+    let x = 5;
+
+    let y = x; // data is copied over since the data is stored on the stack
+
+    println!("{} {}", x, y);
+}
+
+fn ex2() {
+    let s1 = String::from("hello");
+    let s2 = s1; // since s1 data is stored on the heap, s2 only copies the pointer to s1's data (known as a move)
+
+    //println!("{} {}", s1); 
+    // when moving, first data is rendered invalid 
+}
+
+fn ex3() {
+    let s1 = String::from("hello");
+    let s2 = s1.clone(); // instead of moving, .clone() makes a deep copy like with data on copied on the stack
+
+    println!("s1 = {}, s2 = {}", s1, s2);
+}
+
+
+
+
+fn doee() {
+
+    let s = String::from("hello");
+
+    takes_ownership(s);
+
+    println!("{}", s);
+
+    let x = 5;
+
+    makes_copy(x);
+
+    println!("{}", x);
+}
+
+fn takes_ownership(some_string: String) {
+    println!("{}", some_string);
+}
+
+fn makes_copy(some_integer: i32) {
+    println!("{}", some_integer);
+}
